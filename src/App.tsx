@@ -7,14 +7,16 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projets" element={<Projects />} />
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projets" element={<Projects />} />
+          </Routes>
+        </BrowserRouter>
+      </QueryClientProvider>
+    </>
   );
 };
 
