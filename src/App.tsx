@@ -1,10 +1,14 @@
-import React from "react";
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Projets from "./components/projects/Projects";
+import Home from "./components/home/Home";
 const App = () => {
   return (
-    <div className="flex justify-center bg-red-400 text-slate-300">
-      <span>TEST</span>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/projets" element={<Projets />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
