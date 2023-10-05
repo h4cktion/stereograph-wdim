@@ -1,6 +1,7 @@
 import { BASE_URL } from "@/constants";
 import { Link, useParams } from "react-router-dom";
 import { useQuery } from "react-query";
+import Paper from "../layouts/Paper";
 
 const Project = () => {
   const { id } = useParams();
@@ -16,13 +17,13 @@ const Project = () => {
   });
 
   return (
-    <div className="w-8/12 m-auto p-8 bg-slate-50 my-8 rounded-xl shadow-xl text-slate-500 relative">
+    <Paper>
       {project && (
         <>
           <h1 className="text-xl text-center">Détail du projet {project.id}</h1>
           <Link
             to={"/projets"}
-            className="absolute top-4 right-4 p-2 bg-teal-100 text-teal-500 rounded-lg hover:shadow-md cursor-pointer"
+            className="absolute top-4 right-4 p-2 bg-teal-100 border-[1px] border-teal-500 text-teal-500 rounded-lg hover:shadow-md cursor-pointer"
           >
             Retour
           </Link>
@@ -34,7 +35,7 @@ const Project = () => {
         </>
       )}
       {isLoading && <span>Récupération du projet...</span>}
-    </div>
+    </Paper>
   );
 };
 

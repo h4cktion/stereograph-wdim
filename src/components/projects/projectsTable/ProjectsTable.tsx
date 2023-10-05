@@ -14,7 +14,7 @@ const ProjectsTable = ({
 }) => {
   return (
     <>
-      <table>
+      <table className="w-full table-auto mt-8">
         <thead>
           <tr>
             <th>ID</th>
@@ -26,8 +26,12 @@ const ProjectsTable = ({
         </thead>
         <tbody>
           {projects?.map((project) => (
-            <tr key={project.id} onClick={() => showProject(project)}>
-              <td>{project.id}</td>
+            <tr
+              key={project.id}
+              onClick={() => showProject(project)}
+              className="cursor-pointer odd:bg-slate-100 hover:bg-slate-200"
+            >
+              <td className="p-2">{project.id}</td>
               <td>{project.nom}</td>
               <td>{project.description}</td>
               <td>{project.commentaire}</td>

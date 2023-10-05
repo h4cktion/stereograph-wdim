@@ -6,7 +6,9 @@ import { useFetchApi } from "@/hooks/useFetchApi";
 import AddProject from "./addProject/AddProject";
 import { BASE_URL } from "@/constants";
 import { useMutation, useQueryClient } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Paper from "../layouts/Paper";
+import { homeIcon } from "@/assets/icons";
 
 const Projects = () => {
   const navigate = useNavigate();
@@ -43,8 +45,18 @@ const Projects = () => {
   };
 
   return (
-    <>
-      <button onClick={addProject}>Ajouter un Projet</button>
+    <Paper>
+      <h1 className="text-xl text-center">Projets</h1>
+      <button
+        onClick={addProject}
+        className="absolute top-4 right-4 bg-teal-100 border-[1px] border-teal-500
+      p-2 cursor-pointer text-teal-500 rounded-md hover:shadow-lg"
+      >
+        Ajouter un Projet
+      </button>
+      <Link to="/" className="absolute top-8 left-8">
+        {homeIcon()}
+      </Link>
       <ProjectsTable
         projects={projects}
         showProject={showProject}
@@ -56,7 +68,7 @@ const Projects = () => {
           <AddProject />
         </Modal>
       )}
-    </>
+    </Paper>
   );
 };
 
