@@ -1,12 +1,15 @@
+import { trashIcon } from "@/assets/icons";
 import { Project } from "@/types";
 
 const ProjectsTable = ({
   projects,
   showProject,
   isLoading,
+  deleteProject,
 }: {
   projects: Project[] | null | undefined;
   showProject: (project: Project) => void;
+  deleteProject: (project: Project) => void;
   isLoading: boolean;
 }) => {
   return (
@@ -29,6 +32,15 @@ const ProjectsTable = ({
               <td>{project.description}</td>
               <td>{project.commentaire}</td>
               <td>{project.etape}</td>
+              <td
+                className="cursor-pointer"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteProject(project);
+                }}
+              >
+                {trashIcon()}
+              </td>
             </tr>
           ))}
         </tbody>
