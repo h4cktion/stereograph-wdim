@@ -1,6 +1,6 @@
 import { trashIcon } from "@/assets/icons";
 import { Project } from "@/types";
-import { filterByEtape } from "@/utils/tableUtils";
+import { filterByEtape, formatId, getEtapeColor } from "@/utils/tableUtils";
 import { useState } from "react";
 import Filters from "./Filters";
 
@@ -11,12 +11,11 @@ const ProjectsTable = ({
   deleteProject,
 }: {
   projects: Project[] | null | undefined;
-  showProject: (project: Project) => void;
-  deleteProject: (project: Project) => void;
+  showProject: (id: number | string) => void;
+  deleteProject: (id: number | string) => void;
   isLoading: boolean;
 }) => {
   const [filters, setFilters] = useState<string[]>([]);
-
   return (
     <div className=" mt-8">
       <Filters setFilters={setFilters} filters={filters} />
@@ -32,28 +31,30 @@ const ProjectsTable = ({
         </thead>
         <tbody>
           {projects &&
-            filterByEtape(projects, filters).map((project) => (
-              <tr
-                key={project.id}
-                onClick={() => showProject(project)}
-                className="cursor-pointer odd:bg-slate-100 hover:bg-slate-200"
-              >
-                <td className="p-2">{project.id}</td>
-                <td>{project.nom}</td>
-                <td>{project.description}</td>
-                <td>{project.commentaire}</td>
-                <td>{project.etape}</td>
-                <td
-                  className="cursor-pointer"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    deleteProject(project);
-                  }}
+            filterByEtape(projects, filters).map(
+              ({ id, commentaire, description, nom, etape }) => (
+                <tr
+                  key={id}
+                  onClick={() => showProject(id)}
+                  className="cursor-pointer odd:bg-slate-100 hover:bg-slate-200"
                 >
-                  {trashIcon()}
-                </td>
-              </tr>
-            ))}
+                  <td className="p-2">{formatId(id)}</td>
+                  <td>{nom}</td>
+                  <td>{description}</td>
+                  <td>{commentaire}</td>
+                  <td className={getEtapeColor(etape)}>{etape}</td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      deleteProject(id);
+                    }}
+                  >
+                    {trashIcon()}
+                  </td>
+                </tr>
+              )
+            )}
         </tbody>
       </table>
       {isLoading && <span>"Récupération des projets..."</span>}

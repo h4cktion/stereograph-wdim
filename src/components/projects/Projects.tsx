@@ -18,8 +18,8 @@ const Projects = () => {
     Project[] | null | undefined
   >("Projects", "/projects");
 
-  const showProject = (project: Project) => {
-    navigate(`/projet/${project.id}`);
+  const showProject = (id: number | string) => {
+    navigate(`/projet/${id}`);
   };
   const addProject = () => {
     setShowModal(true);
@@ -40,8 +40,8 @@ const Projects = () => {
       },
     }
   );
-  const deleteProject = (project: Project) => {
-    deleteFileMutation.mutateAsync(project.id);
+  const deleteProject = (id: number | string) => {
+    deleteFileMutation.mutateAsync(id);
   };
 
   return (
