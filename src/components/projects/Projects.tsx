@@ -24,6 +24,9 @@ const Projects = () => {
   const addProject = () => {
     setShowModal(true);
   };
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   const deleteFileMutation = useMutation(
     async (id: number | string) => {
@@ -65,7 +68,7 @@ const Projects = () => {
       />
       {showModal && (
         <Modal setShowModal={setShowModal}>
-          <AddProject />
+          <AddProject closeModal={closeModal} />
         </Modal>
       )}
     </Paper>
