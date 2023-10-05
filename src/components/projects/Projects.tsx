@@ -6,8 +6,10 @@ import { useFetchApi } from "@/hooks/useFetchApi";
 import AddProject from "./addProject/AddProject";
 import { BASE_URL } from "@/constants";
 import { useMutation, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 
 const Projects = () => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState(false);
   const { isLoading, data: projects } = useFetchApi<
@@ -15,7 +17,7 @@ const Projects = () => {
   >("Projects", "/projects");
 
   const showProject = (project: Project) => {
-    console.log("project", project);
+    navigate(`/projet/${project.id}`);
   };
   const addProject = () => {
     setShowModal(true);
@@ -37,7 +39,6 @@ const Projects = () => {
     }
   );
   const deleteProject = (project: Project) => {
-    console.log("delete", project);
     deleteFileMutation.mutateAsync(project.id);
   };
 
