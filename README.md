@@ -14,6 +14,10 @@ yarn
 yarn dev
 ```
 
+## Version Déployée sur Vercel
+
+Vous pouvez tester la version déployée de ce projet en suivant ce lien : [Testez le Projet en Ligne](https://stereograph-wdim-cq6ca40a3-h4cktion.vercel.app/)
+
 ## Tests (Non Implémentés)
 
 Malheureusement, en raison de contraintes de temps, les tests n'ont pas été implémentés dans ce projet. J'ai essayé de les mettre ne place mais je n'ai pas réussi à les lancer.
