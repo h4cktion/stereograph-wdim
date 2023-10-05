@@ -41,7 +41,7 @@ const AddProject = ({ closeModal }: { closeModal: () => void }) => {
     return true;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent, formData: FormData) => {
     e.preventDefault();
     if (formIsValidYesIKnowIsVeryBad(formData))
       saveNotificationMutation.mutate({ ...formData, id: uuidv4() });
@@ -67,7 +67,10 @@ const AddProject = ({ closeModal }: { closeModal: () => void }) => {
   return (
     <div className="text-slate-400 mt-8">
       <h1 className="text-2xl uppercase text-center">ajouter un projet</h1>
-      <form onSubmit={handleSubmit} className="my-4 flex flex-col gap-2">
+      <form
+        onSubmit={(e) => handleSubmit(e, formData)}
+        className="my-4 flex flex-col gap-2"
+      >
         <div className="flex gap-2 items-center">
           <label htmlFor="nom" className="w-4/12">
             Nom <span className="text-red-300">*</span>
