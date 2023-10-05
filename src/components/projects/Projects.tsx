@@ -1,15 +1,15 @@
 import { Project } from "@/types";
-import { useQuery } from "react-query";
 import ProjectsTable from "./projectsTable/ProjectsTable";
 import { useState } from "react";
 import Modal from "../modal/Modal";
+import { useFetchApi } from "@/hooks/useFetchApi";
+import AddProject from "./addProject/AddProject";
 
 const Projects = () => {
   const [showModal, setShowModal] = useState(false);
-  const { isLoading, data: projects } = useQuery<Project[] | null | undefined>(
-    "Projects",
-    () => fetch("http://localhost:3000/projects").then((res) => res.json())
-  );
+  const { isLoading, data: projects } = useFetchApi<
+    Project[] | null | undefined
+  >("Projects", "/projects");
 
   const showProject = (project: Project) => {
     console.log("project", project);
@@ -29,7 +29,7 @@ const Projects = () => {
       />
       {showModal && (
         <Modal setShowModal={setShowModal}>
-          <span>Ma super modal</span>
+          <AddProject />
         </Modal>
       )}
     </>
