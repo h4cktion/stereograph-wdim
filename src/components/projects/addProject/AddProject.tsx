@@ -1,19 +1,25 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { FormData, Project } from "@/types";
-import { useMutation, useQueryClient } from "react-query";
-import { BASE_URL, DONE, IN_PROGRESS, TODO } from "@/constants";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { Project } from "@/types";
+import { DONE, IN_PROGRESS, TODO } from "@/constants";
+import useCreateOrUpdateProject from "@/hooks/useCreateOrUpdate";
 
-const AddProject = ({ closeModal }: { closeModal: () => void }) => {
-  const queryClient = useQueryClient();
-  const fields: FormData = {
-    nom: "",
-    description: "",
-    commentaire: "",
-    etape: "",
+const AddProject = ({
+  initData,
+  closeModal,
+}: {
+  initData?: Project;
+  closeModal: () => void;
+}) => {
+  // const queryClient = useQueryClient();
+  const fields: Project = {
+    id: initData?.id || undefined,
+    nom: initData?.nom || "",
+    description: initData?.description || "",
+    commentaire: initData?.commentaire || "",
+    etape: initData?.etape || "",
   };
 
-  const [formData, setFormData] = useState<FormData>(fields);
+  const [formData, setFormData] = useState<Project>(fields);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -30,7 +36,7 @@ const AddProject = ({ closeModal }: { closeModal: () => void }) => {
     description,
     commentaire,
     etape,
-  }: FormData) => {
+  }: Project) => {
     if (
       nom.trim() === "" ||
       description.trim() === "" ||
@@ -40,29 +46,19 @@ const AddProject = ({ closeModal }: { closeModal: () => void }) => {
       return false;
     return true;
   };
+  const { createOrUpdateProject, isSuccess } = useCreateOrUpdateProject();
 
-  const handleSubmit = (e: FormEvent, formData: FormData) => {
+  const handleSubmit = (e: FormEvent, formData: Project) => {
     e.preventDefault();
     if (formIsValidYesIKnowIsVeryBad(formData))
-      saveNotificationMutation.mutate({ ...formData, id: uuidv4() });
+      createOrUpdateProject.mutate(formData);
   };
 
-  const saveNotificationMutation = useMutation(
-    (data: Project) =>
-      fetch(`${BASE_URL}/projects`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("Projects");
-        closeModal();
-      },
+  useEffect(() => {
+    if (isSuccess) {
+      closeModal();
     }
-  );
+  }, [closeModal, isSuccess]);
 
   return (
     <div className="text-slate-400 mt-8">
