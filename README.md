@@ -16,7 +16,7 @@ yarn dev
 
 ## Version Déployée sur Vercel
 
-Vous pouvez tester la version déployée de ce projet en suivant ce lien : [Testez le Projet en Ligne](https://stereograph-wdim-cq6ca40a3-h4cktion.vercel.app/)
+Vous pouvez tester la version déployée de ce projet en suivant ce lien : [Testez le Projet en Ligne](https://stereograph-wdim.vercel.app/)
 
 ## Tests (Non Implémentés)
 
