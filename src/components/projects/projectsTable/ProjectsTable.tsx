@@ -35,10 +35,10 @@ const ProjectsTable = ({
               ({ id, commentaire, description, nom, etape }) => (
                 <tr
                   key={id}
-                  onClick={() => showProject(id)}
+                  onClick={() => showProject(id!)}
                   className="cursor-pointer odd:bg-slate-100 hover:bg-slate-200"
                 >
-                  <td className="p-2">{formatId(id)}</td>
+                  <td className="p-2">{formatId(id!)}</td>
                   <td>{nom}</td>
                   <td>{description}</td>
                   <td>{commentaire}</td>
@@ -47,7 +47,7 @@ const ProjectsTable = ({
                     className="cursor-pointer"
                     onClick={(e) => {
                       e.stopPropagation();
-                      deleteProject(id);
+                      deleteProject(id!);
                     }}
                   >
                     {trashIcon()}

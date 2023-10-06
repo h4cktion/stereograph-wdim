@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const todos = [
   "Afficher la liste des projets dans un tableau. (faire une route spécifique)",
   "Ajouter un projet (ouvrir une modale)",
+  "Modifier un projet (ouvrir une modale)",
   "Consulter un projet (faire une route spécifique)",
   "Supprimer un projet (depuis la liste des projets)",
   "Filtrer les projets selon l’attribut “etape” (dans la liste des projets)",
